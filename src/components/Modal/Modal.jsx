@@ -25,14 +25,14 @@ export class Modal extends Component {
 
 
     render() {
-        const {children} = this.props
-        return (
-            <div
-                onClick={this.handleOverayClick}
-                className={css.overlay}>
-                <div className={css.modal}></div>
-                {children}
-            </div>
+        const { imageUrl, children } = this.props;
+    return (
+      <div onClick={this.handleOverayClick} className={css.overlay}>
+        <div className={css.modal}>
+          <img src={imageUrl} alt="Modal" />
+          {children}
+        </div>
+      </div>
         )
     }
 

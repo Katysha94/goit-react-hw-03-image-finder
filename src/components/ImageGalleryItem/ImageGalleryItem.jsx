@@ -3,7 +3,8 @@ import css from './ImageGalleryItem.module.css'
 export const ImageGalleryItem = ({ image, handleClick }) => {
     return (
         <li className={css.imgGalleryItem}>
-        <img
+            <img
+        className={css.image}
         src={image.webformatURL}
         alt={image.tags}
         width="350"
