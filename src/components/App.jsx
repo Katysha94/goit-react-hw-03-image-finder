@@ -120,7 +120,7 @@ export class App extends Component {
             imageUrl={this.state.modalImage}
           />)}
         <ToastContainer
-          autoClose={2000}
+          autoClose={3000}
         />
     </div>
   );
