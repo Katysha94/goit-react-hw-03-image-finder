@@ -27,7 +27,7 @@ export class App extends Component {
      const { searchQuery, page } = this.state;
 
     if (prevState.searchQuery !== searchQuery || prevState.page !== page) {
-      this.setState({ isLoading: true, page: 1 })
+      // this.setState({ isLoading: true, })
       this.fetchImages(searchQuery, 1)
     }
     
@@ -92,16 +92,10 @@ export class App extends Component {
     return (
     <div
       style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101',
         display: 'grid',
-        gridTemplateColumns: '1fr',
-        gridGap: '16px',
-        paddingBottom: '24px',
+  gridTemplateColumns: '1fr',
+  gridGap: '16px',
+  paddingBottom: '24px',
       }}
     >
         <Searchbar
