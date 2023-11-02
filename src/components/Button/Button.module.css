@@ -1,3 +1,9 @@
+.loadMoreContainer {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
 .LoadMoreBtn {
     padding: 8px 16px;
     border-radius: 2px;

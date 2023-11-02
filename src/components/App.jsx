@@ -27,8 +27,7 @@ export class App extends Component {
      const { searchQuery, page } = this.state;
 
     if (prevState.searchQuery !== searchQuery || prevState.page !== page) {
-      // this.setState({ isLoading: true, })
-      this.fetchImages(searchQuery, 1)
+      this.fetchImages(searchQuery,  page)
     }
     
    }
@@ -41,16 +40,17 @@ export class App extends Component {
     try {
   
       const response = await fetchImages(searchQuery, page);
-      if (response.total === 0) {
+      if (response.length === 0) {
         this.setState({
           isLoadMore: false,
         }) 
         return toast.error("Sory, There are no images matching your request", { theme: "colored" })
+        
   
       } else {
         this.setState(prevState => ({
         images: [...prevState.images, ...response],
-          isLoadMore: true,
+        isLoadMore: response.length > 0,
         error: null,
       }))
       }
@@ -68,7 +68,7 @@ export class App extends Component {
 
   
   handleSearch = (searchQuery) => {
-    this.setState({searchQuery, page: 1 })
+    this.setState({searchQuery, page: 1, images: [] })
 
   }
 
@@ -77,7 +77,7 @@ export class App extends Component {
       page: prevState.page + 1,
       isLoading: true,
     }))
-    this.fetchImages(this.state.searchQuery, this.state.page + 1)
+
   }
 
   openModal = largeImageURL => {
@@ -89,6 +89,7 @@ export class App extends Component {
   }
  
   render() {
+    const { images, isLoading, isLoadMore, error, isModalVisible, modalImage } = this.state;
     return (
     <div
       style={{
@@ -101,17 +102,17 @@ export class App extends Component {
         <Searchbar
           onSubmit={this.handleSearch} />
         <ImageGallery
-          images={this.state.images}
+          images={images}
           handleClick={this.openModal} />
-        {this.state.isLoading && < Loader />}
-      {this.state.isLoadMore && (
+        {isLoading && < Loader />}
+      {isLoadMore && (
   <Button onClick={this.handleLoadMore} />
         )}
-         {this.state.error && toast.error(`${this.state.error.message}`)}
-         {this.state.isModalVisible && (
+         {error && toast.error(`${error.message}`)}
+         {isModalVisible && (
           <Modal
             closeModal={this.closeModal}
-            imageUrl={this.state.modalImage}
+            imageUrl={modalImage}
           />)}
         <ToastContainer
           autoClose={3000}
